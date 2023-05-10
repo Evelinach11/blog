@@ -19,6 +19,20 @@ async function putLike(postId) {
   }
 }
 
+const lineChart = document.querySelectorAll("#chart path");
+
+const timeline = gsap.timeline({ repeat: -1 });
+lineChart.forEach((path) => {
+  const length = path.getTotalLength();
+  path.style.strokeDasharray = length;
+  path.style.strokeDashoffset = length;
+  timeline.fromTo(
+    path,
+    { strokeDashoffset: length },
+    { strokeDashoffset: 0, duration: 3 }
+  );
+});
+
 function getPostId() {
   return document.getElementById("post-id")?.value;
 }
