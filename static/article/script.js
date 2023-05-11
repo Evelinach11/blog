@@ -33,22 +33,29 @@ lineChart.forEach((path) => {
   );
 });
 
+const controller = new ScrollMagic.Controller();
 const bars = new Set();
 bars.add(document.getElementById("ColumnChart1"));
 bars.add(document.getElementById("ColumnChart2"));
 bars.add(document.getElementById("ColumnChart3"));
 bars.add(document.getElementById("ColumnChart4"));
 
-let timeLine = new TimelineMax({});
 
 bars.forEach((b) => {
-  timeLine.set(b, { autoAlpha: 1 });
-  timeLine.from(b, {
-    scaleY: 0,
-    transformOrigin: "0% 100%",
-    stagger: 0.1,
-    duration: 2,
-  });
+  const scene = new ScrollMagic.Scene({
+    triggerElement: b,
+    triggerHook: 0.8,
+    reverse: false,
+  })
+  .setTween(
+    gsap.from(b, {
+      scaleY: 0,
+      transformOrigin: "0% 100%",
+      stagger: 0.1,
+      duration: 2,
+    })
+  )
+  .addTo(controller);
 });
 
 function getPostId() {
